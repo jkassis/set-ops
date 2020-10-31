@@ -3,7 +3,7 @@
 
 declare type Setish<T> = Set<T> | Array<T>
 
-declare enum Location {
+const enum Location {
     a = 1,
     b = 2,
     ab = 3
