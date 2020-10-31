@@ -1,6 +1,8 @@
-export declare function Union<T>(a: Set<T>, b: Set<T>, uidFn?: (T: any) => string): Array<T>;
-export declare function Intersection<T>(a: Set<T>, b: Set<T>, uidFn?: (T: any) => string): Array<T>;
-export declare function Difference<T>(a: Set<T>, b: Set<T>, uidFn?: (T: any) => string): Array<T>;
-export declare function AOnly<T>(a: Set<T>, b: Set<T>, uidFn?: (T: any) => string): Array<T>;
-export declare function BOnly<T>(a: Set<T>, b: Set<T>, uidFn?: (T: any) => string): Array<T>;
-export declare function Equals<T>(a: Set<T>, b: Set<T>, uidFn?: (T: any) => string): boolean;
+declare type Setish<T> = Set<T> | Array<T>;
+export declare function Union<T>(a: Setish<T>, b: Setish<T>, uidFn?: (T: any) => string): Array<T>;
+export declare function Intersection<T>(a: Setish<T>, b: Setish<T>, uidFn?: (T: any) => string): Array<T>;
+export declare function Difference<T>(a: Setish<T>, b: Setish<T>, uidFn?: (T: any) => string): Array<T>;
+export declare function AOnly<T>(a: Setish<T>, b: Setish<T>, uidFn?: (T: any) => string): Array<T>;
+export declare function BOnly<T>(a: Setish<T>, b: Setish<T>, uidFn?: (T: any) => string): Array<T>;
+export declare function Equals<T>(a: Setish<T>, b: Setish<T>, uidFn?: (T: any) => string): boolean;
+export {};
