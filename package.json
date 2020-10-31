@@ -1,0 +1,29 @@
+{
+  "name": "tssetops",
+  "version": "1.0.11",
+  "description": "Set Operations in Typescript",
+  "main": "dist/Module.js",
+  "types": "dist/Module.d.ts",
+  "author": "Jeremy Kassis <jkassis@gmail.com>",
+  "homepage": "https://github.com/jkassis/tssetops#Readme.md",
+  "repository": "https://github.com/jkassis/tssetops",
+  "license": "SEE LICENSE IN LICENSE.MD",
+  "type": "module",
+  "engines": {},
+  "keywords": [
+    "typescript",
+    "javascript",
+    "set",
+    "ops",
+    "operation",
+    "union",
+    "difference",
+    "intersection",
+    "complement"
+  ],
+  "scripts": {
+    "prepare": "tsc"
+  },
+  "dependencies": {
+  }
+}
