@@ -1,5 +1,11 @@
 // setOps.js
 // MIT License © 2020 Jeremy Kassis http://github.com/jkassis
+var Location;
+(function (Location) {
+    Location[Location["a"] = 1] = "a";
+    Location[Location["b"] = 2] = "b";
+    Location[Location["ab"] = 3] = "ab";
+})(Location || (Location = {}));
 function censusMake(a, b, uidFn, evaluator) {
     var census = {};
     var uid;
