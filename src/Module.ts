@@ -1,6 +1,8 @@
 // setOps.js
 // MIT License © 2020 Jeremy Kassis http://github.com/jkassis
 
+declare type Setish<T> = Set<T> | Array<T>
+
 declare enum Location {
     a = 1,
     b = 2,
@@ -9,7 +11,7 @@ declare enum Location {
 
 declare type Census<T> = { [k: string]: { value: T, location: Location } }
 
-function censusMake<T>(a: Set<T>, b: Set<T>, uidFn?: (T) => string, evaluator?: (number) => boolean): Census<T> {
+function censusMake<T>(a: Setish<T>, b: Setish<T>, uidFn?: (T) => string, evaluator?: (number) => boolean): Census<T> {
     var census: Census<T> = {}
     var uid: string
 
@@ -33,7 +35,7 @@ function censusMake<T>(a: Set<T>, b: Set<T>, uidFn?: (T) => string, evaluator?: 
 
 
 // Perform a set operation by making a histogram and applying an operator
-function operation<T>(a: Set<T>, b: Set<T>, operator: (location: Location) => boolean, uidFn?: (T) => string): Array<T> {
+function operation<T>(a: Setish<T>, b: Setish<T>, operator: (location: Location) => boolean, uidFn?: (T) => string): Array<T> {
     var out: Array<T> = []
     var census = censusMake(a, b, uidFn)
     for (var k in census)
@@ -44,7 +46,7 @@ function operation<T>(a: Set<T>, b: Set<T>, operator: (location: Location) => bo
 // Join two sets together.
 //
 // Set.union([1, 2, 2], [2, 3]) => [1, 2, 3]
-export function Union<T>(a: Set<T>, b: Set<T>, uidFn?: (T) => string): Array<T> {
+export function Union<T>(a: Setish<T>, b: Setish<T>, uidFn?: (T) => string): Array<T> {
     return operation(a, b, () => true, uidFn)
 }
 
@@ -52,7 +54,7 @@ export function Union<T>(a: Set<T>, b: Set<T>, uidFn?: (T) => string): Array<T> 
 //
 // Set.intersection([1, 1, 2], [2, 2, 3]) => [2]
 var intersection = (location: Location) => location == Location.ab
-export function Intersection<T>(a: Set<T>, b: Set<T>, uidFn?: (T) => string): Array<T> {
+export function Intersection<T>(a: Setish<T>, b: Setish<T>, uidFn?: (T) => string): Array<T> {
     return operation(a, b, intersection, uidFn)
 }
 
@@ -60,7 +62,7 @@ export function Intersection<T>(a: Set<T>, b: Set<T>, uidFn?: (T) => string): Ar
 //
 // Set.difference([1, 1, 2], [2, 3, 3]) => [1, 3]
 var difference = (location: Location) => location != Location.ab
-export function Difference<T>(a: Set<T>, b: Set<T>, uidFn?: (T) => string): Array<T> {
+export function Difference<T>(a: Setish<T>, b: Setish<T>, uidFn?: (T) => string): Array<T> {
     return operation(a, b, difference, uidFn)
 }
 
@@ -68,7 +70,7 @@ export function Difference<T>(a: Set<T>, b: Set<T>, uidFn?: (T) => string): Arra
 //
 // Set.complement([1, 2, 2], [2, 2, 3]) => [3]
 var aOnly = (location: Location) => location == Location.a
-export function AOnly<T>(a: Set<T>, b: Set<T>, uidFn?: (T) => string): Array<T> {
+export function AOnly<T>(a: Setish<T>, b: Setish<T>, uidFn?: (T) => string): Array<T> {
     return operation(a, b, aOnly, uidFn)
 }
 
@@ -76,7 +78,7 @@ export function AOnly<T>(a: Set<T>, b: Set<T>, uidFn?: (T) => string): Array<T> 
 //
 // Set.complement([1, 2, 2], [2, 2, 3]) => [3]
 var bOnly = (location: Location) => location == Location.b
-export function BOnly<T>(a: Set<T>, b: Set<T>, uidFn?: (T) => string): Array<T> {
+export function BOnly<T>(a: Setish<T>, b: Setish<T>, uidFn?: (T) => string): Array<T> {
     return operation(a, b, bOnly, uidFn)
 }
 
@@ -84,7 +86,7 @@ export function BOnly<T>(a: Set<T>, b: Set<T>, uidFn?: (T) => string): Array<T> 
 //
 // Set.equals([1, 1, 2], [1, 2, 2]) => true
 // Set.equals([1, 1, 2], [1, 2, 3]) => false
-export function Equals<T>(a: Set<T>, b: Set<T>, uidFn?: (T) => string): boolean {
+export function Equals<T>(a: Setish<T>, b: Setish<T>, uidFn?: (T) => string): boolean {
     var census = censusMake(a, b, uidFn)
     for (var key in census)
         if (census[key].location != Location.ab)
